@@ -9,7 +9,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.util.List;
-import java.util.Optional;
+
 
 @Service
 public class ProductServiceImpl implements ProductService {
@@ -23,8 +23,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
    public List<Product> getAllProducts(){
-       List<Product> products = productRepo.findAll();
-       return products;
+       return productRepo.findAll();
     }
 
     public Product getProductById(int id){
