@@ -45,5 +45,17 @@ public class ProductServiceImpl implements ProductService {
         return productRepo.save(product);
     }
 
+    @Override
+    public void deleteProduct(int id) {
+        productRepo.deleteById(id);
+    }
+
+    @Override
+    public List<Product> searchProducts(String keyword) {
+
+        //return List.of();
+        return productRepo.searchProducts(keyword);
+    }
+
 
 }

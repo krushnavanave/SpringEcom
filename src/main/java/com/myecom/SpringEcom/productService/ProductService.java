@@ -1,6 +1,7 @@
 package com.myecom.SpringEcom.productService;
 
 import com.myecom.SpringEcom.model.Product;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -17,4 +18,8 @@ public interface ProductService {
     Product addProduct(Product product, MultipartFile imageFile) throws IOException;
 
     Product updatedProduct(Product product, MultipartFile imageFile) throws IOException;
+
+    void deleteProduct(int id);
+
+    List<Product> searchProducts(String keyword);
 }

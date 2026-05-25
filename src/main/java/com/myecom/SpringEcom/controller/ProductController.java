@@ -59,15 +59,33 @@ public class ProductController {
         }
     }
     @PutMapping("/product/{id}")
-    public ResponseEntity<String> updateProduct(@PathVariable int id, @RequestPart Product product, @RequestPart MultipartFile imageFile){
-        Product updatedProduct = null;
+    public ResponseEntity<String> updateProduct(@RequestPart Product product, @RequestPart MultipartFile imageFile){
         try{
-            updatedProduct = productService.updatedProduct(product, imageFile);
+            productService.updatedProduct(product, imageFile);
             return new ResponseEntity<>("Updated", HttpStatus.OK);
         }
         catch (IOException e){
             return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
+    }
+
+    @DeleteMapping("/product/{id}")
+    public ResponseEntity<String> deleteProduct(@PathVariable int id){
+        Product product = productService.getProductById(id);
+        if (product != null) {
+            productService.deleteProduct(id);
+            return new ResponseEntity<>("Deleted", HttpStatus.OK);
+        }
+        else{
+            return new ResponseEntity<>("Product Not Found", HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @GetMapping("/products/search")
+    ResponseEntity<List<Product>> searchProduct(@RequestParam String keyword){
+        List<Product> products = productService.searchProducts(keyword);
+        System.out.println("searching product with " + keyword);
+        return new ResponseEntity<>(products, HttpStatus.OK);
     }
 
 }
